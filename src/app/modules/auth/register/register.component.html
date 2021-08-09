@@ -1,0 +1,97 @@
+<mat-card class="main-form">
+  <mat-card-title class="main-form__title">
+    Register
+  </mat-card-title>
+
+  <ng-container *ngIf="!!formGroup"
+                [formGroup]="formGroup">
+    <mat-card-content class="main-form__content">
+
+      <mat-form-field appearance="outline" class="main-form__control">
+        <mat-label>Login</mat-label>
+        <input matInput type="text" formControlName="login" required>
+        <mat-error>
+          {{errors.required}}
+        </mat-error>
+      </mat-form-field>
+
+      <ng-container formGroupName="password">
+
+        <mat-form-field appearance="outline" class="main-form__control">
+          <mat-label>Password</mat-label>
+          <input matInput
+                 type="password"
+                 formControlName="password1"
+                 required
+                 [errorStateMatcher]="confirmValidParentMatcher"
+          >
+          <mat-error *ngIf="formGroup.get('password')?.hasError('notEqual')">
+            {{errors.notEqual}}
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('password.password1')?.hasError('required')">
+            {{errors.required}}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="main-form__control">
+          <mat-label>Confirm password</mat-label>
+          <input matInput
+                 type="password"
+                 formControlName="password2"
+                 required
+                 [errorStateMatcher]="confirmValidParentMatcher"
+          >
+          <mat-error *ngIf="formGroup.get('password')?.hasError('notEqual')">
+            {{errors.notEqual}}
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('password.password1')?.hasError('required')">
+            {{errors.required}}
+          </mat-error>
+        </mat-form-field>
+
+      </ng-container>
+
+      <mat-form-field appearance="outline" class="main-form__control">
+        <mat-label>Male/Female</mat-label>
+        <mat-select formControlName="male">
+          <mat-option value="male">Male</mat-option>
+          <mat-option value="female">Female</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="main-form__control">
+        <mat-label>Date Of Birth</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="main-form__control">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email">
+        <mat-error>
+          {{errors.email}}
+        </mat-error>
+      </mat-form-field>
+
+    </mat-card-content>
+
+    <mat-card-actions class="main-form__actions">
+
+      <button mat-raised-button
+              color="primary"
+              [disabled]="!formGroup.valid"
+              (click)="submit()"
+      >
+        Submit
+      </button>
+
+      <button mat-flat-button
+              routerLink="/auth/login"
+      >
+        Login
+      </button>
+
+    </mat-card-actions>
+  </ng-container>
+</mat-card>

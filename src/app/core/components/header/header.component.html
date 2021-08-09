@@ -1,0 +1,26 @@
+<mat-toolbar class="header">
+  <div class="header__left-group">
+    <button mat-icon-button
+            (click)="toggleSidebar()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+    <h4>Tree viewer</h4>
+  </div>
+
+  <div class="header__right-group">
+    <span>
+      Hello, {{username$ | async}}
+    </span>
+    <button mat-raised-button
+            routerLink="/profile"
+    >
+      Profile
+    </button>
+    <button mat-raised-button
+            (click)="logout()"
+    >
+      Log out
+    </button>
+  </div>
+</mat-toolbar>

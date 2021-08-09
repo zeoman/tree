@@ -1,0 +1,70 @@
+<mat-card class="tree-viewer" *ngIf="!!dataSource?.data && !!treeControl">
+  <ng-container *ngIf="!!dataSource.data && dataSource.data.length < 25; else warningButtons">
+    <button mat-stroked-button
+            class="tree-viewer__button"
+            (click)="tree.treeControl.expandAll()"
+    >
+      Expand All
+    </button>
+
+    <button mat-stroked-button
+            class="tree-viewer__button"
+            (click)="tree.treeControl.collapseAll()"
+    >
+      Collapse All
+    </button>
+  </ng-container>
+
+
+  <button mat-raised-button
+          color="warn"
+          class="tree-viewer__button"
+          (click)="deleteTree()"
+  >
+    Delete tree
+  </button>
+
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" #tree>
+
+    <mat-tree-node *matTreeNodeDef="let node"
+                   matTreeNodeToggle
+                   matTreeNodePadding
+    >
+      <button mat-raised-button disabled>{{node.name}}</button>
+    </mat-tree-node>
+
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild"
+                   matTreeNodePadding
+    >
+      <button mat-raised-button matTreeNodeToggle>
+        {{node.name}}
+        <mat-icon>
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+    </mat-tree-node>
+
+  </mat-tree>
+</mat-card>
+
+<ng-template #warningButtons>
+  <button mat-stroked-button
+          color="warn"
+          class="tree-viewer__button"
+          matTooltip="Operation can takes a lot of time or crash browser."
+          matTooltipClass="custom-tooltip"
+          (click)="tree?.treeControl?.expandAll()"
+  >
+    Expand All
+  </button>
+
+  <button mat-stroked-button
+          color="warn"
+          class="tree-viewer__button"
+          matTooltip="Operation can takes a lot of time or crash browser."
+          matTooltipClass="custom-tooltip"
+          (click)="tree?.treeControl?.collapseAll()"
+  >
+    Collapse All
+  </button>
+</ng-template>

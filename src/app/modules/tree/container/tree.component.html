@@ -1,0 +1,18 @@
+<app-header></app-header>
+<mat-sidenav-container>
+  <mat-sidenav [opened]="isSidebarOpen$ | async"
+               mode="side"
+               fixedInViewport="true"
+               fixedTopGap="65"
+  >
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div *ngIf="isMainPage" class="main-page-content">
+      <h2>Please choose an action</h2>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+

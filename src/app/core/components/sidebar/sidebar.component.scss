@@ -1,0 +1,11 @@
+.menu-item-disabled {
+  opacity: .5;
+  cursor: default!important;
+
+  &:hover, &:focus {
+    background: #fff!important;
+  }
+}
+:host ::ng-deep .mat-tooltip {
+  font-size: 24px!important;
+}
