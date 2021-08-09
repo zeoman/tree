@@ -30,6 +30,7 @@
                  type="number"
                  formControlName="childrenMin"
                  autocomplete="off"
+                 [errorStateMatcher]="confirmValidParentMatcher"
                  (focus)="selectValue($event)"
           >
           <mat-error *ngIf="formGroup.get('childrenAmount.childrenMin')?.hasError('required')">
@@ -37,6 +38,9 @@
           </mat-error>
           <mat-error *ngIf="formGroup.get('childrenAmount.childrenMin')?.hasError('integersPositive')">
             {{errors.integersPositive}}
+          </mat-error>
+          <mat-error *ngIf="formGroup.get('childrenAmount')?.hasError('secondMustBeMore')">
+            {{errors.secondMustBeMore}}
           </mat-error>
         </mat-form-field>
 

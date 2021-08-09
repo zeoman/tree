@@ -3,7 +3,7 @@ import {ITreeFormParams} from "../interfaces/tree-form-params.interface";
 import {BehaviorSubject, Observable} from "rxjs";
 import {ITreeNode} from "../interfaces/tree-node.interface";
 import {MatSnackBar} from "@angular/material/snack-bar";
-// import {LoaderService} from "./loader.service";
+import {LoaderService} from "./loader.service";
 
 
 @Injectable({
@@ -16,7 +16,7 @@ export class TreeService {
   private isTreeExistingSubject: BehaviorSubject<boolean>;
 
   constructor(
-    // private loaderService: LoaderService
+    private loaderService: LoaderService,
     private snackBar: MatSnackBar
   ) {
     const existingTree = this.getTreeFromStorage()
@@ -38,35 +38,35 @@ export class TreeService {
 
   makeTreeData(data: ITreeFormParams): Promise<any> {
     this.params = data;
-    // this.loaderService.activateLoader(this.params.rootNodesAmount);
 
     return new Promise(resolve => {
-      this.generateTree()
+      this.generateTree(data)
       resolve('ok');
-    });
+    })
   }
 
-  private generateTree(): void {
+  private generateTree(data: ITreeFormParams): void {
     this.treeSubject.next([]);
-
-    let id: number = 1;
-    const nodes = []
-    // @ts-ignore
-    for (let i = 0; i <= this.params.rootNodesAmount; i++) {
-
-      let node = {
-        name: 'root-node_' + id++
-      }
-      let level = 1;
-      this.makeChildren(node, level, id)
-      nodes.push(node);
-
-      // this.loaderService.generatedNodeAdded();
-    }
-    this.treeSubject.next(nodes);
-    this.saveTreeToStorage(nodes);
+    this.loaderService.activateLoader(data.rootNodesAmount);
     this.isTreeExistingSubject.next(true);
-    // this.loaderService.loadingComplete();
+    setTimeout(() => {
+      let id: number = 1;
+      const nodes = []
+      for (let i = 0; i <= data.rootNodesAmount; i++) {
+
+        let node = {
+          name: 'root-node_' + id++
+        }
+        let level = 1;
+        this.makeChildren(node, level, id)
+        nodes.push(node);
+
+        // this.loaderService.generatedNodeAdded();
+      }
+      this.treeSubject.next(nodes);
+      this.saveTreeToStorage(nodes);
+      this.loaderService.loadingComplete();
+    })
   }
 
   private makeChildren(node: ITreeNode, level: number, id: number): void {
@@ -99,7 +99,7 @@ export class TreeService {
     }
     catch (e) {
       this.snackBar.open("Local Storage is full. Tree has not been saved.", 'Ok', {panelClass: 'snackbar-error'});
-      localStorage.removeItem('tree');
+      // localStorage.removeItem('tree');
     }
   }
 

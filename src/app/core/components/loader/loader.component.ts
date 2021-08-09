@@ -14,12 +14,12 @@ export class LoaderComponent implements OnInit {
   // progress$: Observable<number> | undefined;
 
   constructor(
-    // private loaderService: LoaderService
+    private loaderService: LoaderService
   ) {
   }
 
   ngOnInit(): void {
-    // this.isLoading$ = this.loaderService.isLoadingObservable
+    this.isLoading$ = this.loaderService.isLoadingObservable
       // .pipe(
       //   tap(progress => this.isLoading = !(progress === 100 || progress === 0))
       // )
