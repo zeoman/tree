@@ -12,4 +12,4 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## TODO 
 
-Rework from FlatTree to NestedTree and perfomance
+Rework from FlatTree to NestedTree and check perfomance
