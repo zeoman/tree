@@ -52,13 +52,14 @@ export class TreeService {
     setTimeout(() => {
       let id: number = 1;
       const nodes = []
-      for (let i = 0; i <= data.rootNodesAmount; i++) {
+      for (let i = 0; i < data.rootNodesAmount; i++) {
 
         let node = {
           name: 'root-node_' + id++
         }
         let level = 1;
-        this.makeChildren(node, level, id)
+        let child_id = 1;
+        this.makeChildren(node, level, child_id)
         nodes.push(node);
 
         // this.loaderService.generatedNodeAdded();

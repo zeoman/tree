@@ -28,17 +28,17 @@ export class TreeGeneratorFormComponent implements OnInit {
 
   createFormGroup(): FormGroup {
     return new FormGroup({
-      rootNodesAmount: new FormControl('5', [
+      rootNodesAmount: new FormControl('7', [
           Validators.required,
           CustomValidators.integersPositive
         ]
       ),
       childrenAmount: new FormGroup({
-        childrenMin: new FormControl('1', [
+        childrenMin: new FormControl('2', [
           Validators.required,
           CustomValidators.integersPositive
         ]),
-        childrenMax: new FormControl('2', [
+        childrenMax: new FormControl('5', [
           Validators.required,
           CustomValidators.integersPositive
         ]),

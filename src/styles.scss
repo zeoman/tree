@@ -4,10 +4,14 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .main-form {
-  width: 80%;
-  max-width: 50vw;
+  width: 50%;
   margin: 10vh auto;
   padding: 3vh 0!important;
+
+  @media (max-width: 1080px) {
+    width: 90%;
+    margin-top: 22px !important;
+  }
 
   &__title {
     text-align: center;
@@ -37,4 +41,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .custom-tooltip {
   font-size: 12px;
+}
+.hide-on-mobile {
+  @media (max-width: 480px) {
+    display: none;
+  }
 }
